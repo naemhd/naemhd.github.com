@@ -1,0 +1,74 @@
+package com.example.wap2;
+
+import javax.servlet.*;
+import javax.servlet.http.*;
+import javax.servlet.annotation.*;
+import java.io.IOException;
+import java.io.PrintWriter;
+
+@WebServlet(name = "cal", value = "/cal")
+public class Cal extends HttpServlet {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+
+        // Hello
+        PrintWriter out = response.getWriter();
+        out.println("<html><body>");
+
+        out.println("<form action='http://localhost:8080/wap2_war_exploded/cal' method='post'>");
+        out.println("<input type='text' name='firstNum'>");
+        out.println(" + ");
+        out.println("<input type='text' name='secondNum'>");
+        out.println("<br/><br/>");
+        out.println("<input type='text' name='firstNum2'>");
+        out.println(" * ");
+        out.println("<input type='text' name='secondNum2'>");
+        out.println("<input type='submit' name='submit_btn'>");
+        out.println("<br/>");
+        out.println("</form>");
+
+        out.println("</body></html>");
+    }
+
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+        response.setContentType("text/html");
+        Integer num1=Integer.parseInt(request.getParameter("firstNum"));
+        Integer num2=Integer.parseInt(request.getParameter("secondNum"));
+        Integer num11=Integer.parseInt(request.getParameter("firstNum2"));
+        Integer num22=Integer.parseInt(request.getParameter("secondNum2"));
+
+        PrintWriter out = response.getWriter();
+
+        Integer result1=0;
+        if(num1>0 && num2>0){
+            result1=num1+num2;
+            out.println(num1+" + "+num2+" = " +result1);
+        }
+
+        out.println("<br/><br/>");
+
+        Integer result2=0;
+        if(num11>0 && num22>0){
+            result2=num11*num22;
+            out.println(num11+" * "+num22+" = "+result2);
+        }
+
+        out.println("<br/><br/><br/>");
+
+        if(num1>0 && num2>0){
+            result1=num1+num2;
+            out.println(" <input name=\"num1\" value="+num1+"> + <input name=\"num2\" value="+num2+"> = <input name=\"sum\" value="+result1+">");
+        }
+
+        out.println("<br/><br/>");
+
+        if(num11>0 && num22>0){
+            result2=num11*num22;
+            out.println(" <input name=\"num1\" value="+num11+"> + <input name=\"num2\" value="+num22+"> = <input name=\"sum\" value="+result2+">");
+        }
+
+    }
+}
+
